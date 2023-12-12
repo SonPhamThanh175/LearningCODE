@@ -25,11 +25,18 @@ a:hover{
   text-decoration: none;
   color: black;
 }
-.btn-primary{
+.btn-grid{
     position: absolute;
     bottom: 10px; /* Đặt vị trí ở dưới cùng */
     left: 60%; /* Đặt vị trí giữa theo chiều ngang */
     // transform: translateX(-130%);
+    background-color: #CC99CC;
+}
+.btn-alert{
+  background-color: #CC99CC;
+}
+strong{
+  color: #CC99CC;
 }
 .card-course-item:hover {
   filter: alpha(opacity=9000);
