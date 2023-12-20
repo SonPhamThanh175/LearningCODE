@@ -45,9 +45,13 @@ class CourseController {
   }
   // [DELETE] /courses/:id
   async delete(req, res, next){
-    await Course.deleteOne({_id : req.params.id })
+    await Course.delete({_id : req.params.id })
     .then(() => res.redirect('back'))
     .catch(next)
+  }
+  // [DELETE] /courses/:id
+  restore(res,req,next){
+    
   }
 }
 
