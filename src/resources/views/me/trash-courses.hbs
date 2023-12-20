@@ -20,7 +20,7 @@
         <td>{{this.level}}</td>
         <td>{{this.createdAt}}</td>
         <td>
-            <a href="" class="btn btn-link btn-restoree" data-id="{{this._id}}">Khôi phục</a>
+            <a href="" class="btn btn-link btn-restore" data-id="{{this._id}}">Khôi phục</a>
             <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-course-modal">Xóa vĩnh viễn</a>
         </td>
       </tr>
@@ -57,14 +57,15 @@
   </div>
 </div>
 
-{{!-- Delete hidden form --}}
 <form name="delete-course-form" method="POST"></form>
+<form name="restore-course-form" method="POST"></form>
 
 
 <script>
   document.addEventListener('DOMContentLoaded',function(){
     var courseId;
     var deleteForm = document.forms['delete-course-form'];
+    var restoreForm = document.forms['restore-course-form'];
     var btnDeleteCourse = document.getElementById('btn-delete-course')
     var restoreBtn = $('.btn-restoree');
 
@@ -75,15 +76,16 @@
     // Lang nghe su kien Click nut DELETE   
     
     btnDeleteCourse.onclick = function () {
-      deleteForm.action = '/courses/'+ courseId +'?_method=DELETE';
+      deleteForm.action = '/courses/'+ courseId +'/force?_method=DELETE';
       deleteForm.submit();
     }
 
     //Restore btn clicked
     restoreBtn.click(function (event) {
-      e.preventDefault();
-      
+      event.preventDefault();      
       var courseId =$(this).data('id');
+      restoreForm.action = '/courses/'+ courseId +'/restore?_method=PATCH';
+      restoreForm.submit();
     });
   })
 })

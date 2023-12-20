@@ -46,13 +46,30 @@ class CourseController {
   // [DELETE] /courses/:id
   async delete(req, res, next){
     await Course.delete({_id : req.params.id })
-    .then(() => res.redirect('back'))
-    .catch(next)
+      .then(() => res.redirect('back'))
+      .catch(next)
   }
-  // [DELETE] /courses/:id
+  // [DELETE] /courses/:id/force
+  async forceDelete(res,req,next){
+    await Course.deleteOne({_id : req.params.id })
+     .then(() => res.redirect('back'))
+     .catch(next)
+  }
+  // [PATCH] /courses/:id/restore
   restore(res,req,next){
-    
+    Course.restore({_id : req.params.id })
+     .then(() => res.redirect('back'))
+     .catch(next)
   }
+  // restore(res,req,next){
+  //   Course.findWithDeleted({ deleted: true }) 
+  //   .then((courses) => { 
+  //     res.render("me/trash-courses", 
+  //       { courses: mutipleMongooseToObject( courses ),
+  //     }); 
+  //   }) 
+  //   .catch(next);
+  // }
 }
 
 module.exports = new CourseController();
