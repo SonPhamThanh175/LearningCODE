@@ -18,8 +18,7 @@ a {
   color: black; }
 
 a:hover {
-  text-decoration: none;
-  color: black; }
+  text-decoration: none; }
 
 .btn-grid {
   position: absolute;
@@ -45,6 +44,10 @@ strong {
   -o-transform: translateY(-2px);
   -ms-transform: translateY(-2px);
   transform: translateY(-2px); }
+
+.checkbox-select-all-options {
+  width: 205px;
+  margin: 0 16px; }
 
 h6 {
   margin-top: 50px; }

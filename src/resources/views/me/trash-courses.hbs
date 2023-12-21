@@ -9,7 +9,7 @@
         <th scope="col">#</th>
         <th scope="col">Tên khóa học</th>
         <th scope="col">Trình độ</th>
-        <th scope="col" colspan="2">Thời gian tạo</th>
+        <th scope="col" colspan="2">Thời gian xóa</th>
       </tr>
     </thead>
     <tbody>
@@ -18,7 +18,7 @@
         <th scope="row">{{sum @index 1}}</th>
         <td>{{this.name}}</td>
         <td>{{this.level}}</td>
-        <td>{{this.createdAt}}</td>
+        <td>{{this.deletedAt}}</td>
         <td>
             <a href="" class="btn btn-link btn-restore" data-id="{{this._id}}">Khôi phục</a>
             <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-course-modal">Xóa vĩnh viễn</a>
@@ -67,7 +67,7 @@
     var deleteForm = document.forms['delete-course-form'];
     var restoreForm = document.forms['restore-course-form'];
     var btnDeleteCourse = document.getElementById('btn-delete-course')
-    var restoreBtn = $('.btn-restoree');
+    var restoreBtn = $('.btn-restore');
 
     //When dialog confirm clicked
     $('#delete-course-modal').on('show.bs.modal', function (event) {
@@ -83,8 +83,9 @@
     //Restore btn clicked
     restoreBtn.click(function (event) {
       event.preventDefault();      
-      var courseId =$(this).data('id');
-      restoreForm.action = '/courses/'+ courseId +'/restore?_method=PATCH';
+      {{!-- var courseId =$(this).data('id'); --}}
+      var courseId = btn.getAttribute('data-id');
+      restoreForm.action = '/courses/' + courseId + '/restore?_method=PATCH';
       restoreForm.submit();
     });
   })
