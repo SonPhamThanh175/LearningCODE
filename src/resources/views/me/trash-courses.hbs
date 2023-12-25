@@ -83,11 +83,12 @@
     //Restore btn clicked
     restoreBtn.click(function (event) {
       event.preventDefault();      
-      {{!-- var courseId =$(this).data('id'); --}}
-      var courseId = btn.getAttribute('data-id');
+      var courseId =$(this).data('id');
+      {{!-- var courseId = btn.getAttribute('data-id'); --}}
       restoreForm.action = '/courses/' + courseId + '/restore?_method=PATCH';
       restoreForm.submit();
     });
+    console.log(123)
   })
 })
 </script>

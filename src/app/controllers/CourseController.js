@@ -72,13 +72,12 @@ class CourseController {
     }
   }
 
-  // [PATCH] /courses/:id/restore
-  
-  // restore(res,req,next){
-  //   Course.restore({_id : req.params.id })
-  //    .then(() => res.redirect('back'))
-  //    .catch(next)
-  // }
+  // [PATCH] /courses/:id/restore 
+  restore(req,res,next){
+    Course.restore({_id : req.params.id })
+     .then(() => res.redirect('back'))
+     .catch(next)
+  }
   // restore(res,req,next){
   //   Course.findWithDeleted({ deleted: true })
   //   .then((courses) => {
@@ -88,27 +87,30 @@ class CourseController {
   //   })
   //   .catch(next);
   // }
-  async restore(req, res, next) {
-    try {
-      // Kiểm tra xem req.params có tồn tại và có chứa id không
-      if (!req.params || !req.params.id) {
-        return res.status(400).json({ error: "Invalid request" });
-      }
-
-      // Khôi phục (restore) course dựa trên _id
-      await Course.restore({ _id: req.params.id });
-
-      // Chuyển hướng về trang trước đó
-      res.redirect("back");
-    } catch (error) {
-      // Bắt và xử lý lỗi
-      console.error(error);
-      next(error); // Chuyển lỗi đến middleware xử lý lỗi tiếp theo
-    }
-  }
+  // async restore(req, res, next) {
+  //   try {
+  //     // Kiểm tra xem req.params có tồn tại và có chứa id không
+  //     if (!req.params || !req.params.id) {
+  //       return res.status(400).json({ error: "Invalid request" });
+  //     }
+  //     await Course.restore({ _id: req.params.id });
+  //     res.redirect("back");
+  //   } catch (error) {
+  //     console.error(error);
+  //     next(error); // Chuyển lỗi đến middleware xử lý lỗi tiếp theo
+  //   }
+  // }
   // [POST] /courses/handle-form-actions
-  handleFormActions(res,req,next) {
-    res.json(req.body);
+  handleFormActions(req,res,next) {
+    switch (req.body.action) {
+      case "delete":
+        Course.delete({ _id: { $in: req.body.courseIds } })
+          .then(() => res.redirect("back"))
+          .catch(next);
+        break;
+      default:
+        res.json({message: 'Invalid action'});
+    }
   }
 }
 

@@ -10,8 +10,9 @@
           Chọn tất cả
         </label>
       </div>
-      <select class="form-control form-control-sm checkbox-select-all-options"  name="action">
-        <option>-- Chọn hành động --</option>
+
+      <select class="form-control form-control-sm checkbox-select-all-options" name="action">
+        <option value="">-- Chọn hành động --</option>
         <option value="delete">Xóa</option>
       </select>
 
@@ -140,12 +141,11 @@
     })
 
     // Check all submit button clicked
-    checkAllSubmitBtn.click(function (e) {
-      e.preventDefault();
 
+    checkAllSubmitBtn.on('submit',function(e) {
       var isSubmittable = !$(this).hasClass('disabled');
         if(isSubmittable){
-          containerForm.submit();
+          e.preventDefault();
         }
     })
 
